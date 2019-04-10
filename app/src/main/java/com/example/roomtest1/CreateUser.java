@@ -27,6 +27,7 @@ public class CreateUser extends AppCompatActivity {
         button = findViewById(R.id.button);
         button.setOnClickListener(view -> {
             Log.d(TAG, "Create User button is pressed");
+            // TODO: Save to database
         });
     }
 }
