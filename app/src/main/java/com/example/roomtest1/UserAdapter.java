@@ -11,9 +11,9 @@ import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
-    private List<String> users;
+    private List<User> users;
 
-    public UserAdapter(List<String> users) {
+    public UserAdapter(List<User> users) {
         this.users = users;
     }
 
@@ -28,7 +28,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull UserAdapter.ViewHolder viewHolder, int i) {
-        viewHolder.name.setText(users.get(i));
+        viewHolder.name.setText(users.get(i).getName());
+        viewHolder.phone.setText(users.get(i).getPhone());
+        viewHolder.email.setText(users.get(i).getEmail());
     }
 
     @Override
@@ -37,11 +39,16 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+
         private TextView name;
+        private TextView phone;
+        private TextView email;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.name);
+            phone = itemView.findViewById(R.id.phone);
+            email = itemView.findViewById(R.id.email);
         }
     }
 

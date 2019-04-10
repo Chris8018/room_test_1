@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
-    List<String> users;
+    List<User> users;
 
     FloatingActionButton fab;
 
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         users = new ArrayList<>();
 
         for (int i = 0; i < 20; i++) {
-            users.add("Hello World " + i);
+            users.add(new User("Hello World " + i, "Phone " + i, "Email " + i));
         }
         recyclerView = findViewById(R.id.recycler_view);
 
