@@ -1,5 +1,6 @@
 package com.example.roomtest1;
 
+import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -22,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
-    List<User> users;
+//    List<User> users;
 
     FloatingActionButton fab;
 
@@ -33,11 +34,20 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        users = new ArrayList<>();
+//        users = new ArrayList<>();
+//
+//        for (int i = 0; i < 20; i++) {
+//            users.add(new User("Hello World " + i, "Phone " + i, "Email " + i));
+//        }
 
-        for (int i = 0; i < 20; i++) {
-            users.add(new User("Hello World " + i, "Phone " + i, "Email " + i));
-        }
+        // Currently being done on main thread (UI thread) !!Bad practice
+        AppDatabase db = Room
+                .databaseBuilder(getApplicationContext(), AppDatabase.class, "production")
+                .allowMainThreadQueries()
+                .build();
+
+        List<User> users = db.userDao().getAllUsers();
+
         recyclerView = findViewById(R.id.recycler_view);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
