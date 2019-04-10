@@ -1,5 +1,7 @@
 package com.example.roomtest1;
 
+import android.arch.persistence.room.Room;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -24,10 +26,22 @@ public class CreateUser extends AppCompatActivity {
         phone = findViewById(R.id.phone);
         email = findViewById(R.id.email);
 
+        AppDatabase db = Room
+                .databaseBuilder(getApplicationContext(), AppDatabase.class, "production")
+                .allowMainThreadQueries()
+                .build();
+
         button = findViewById(R.id.button);
         button.setOnClickListener(view -> {
             Log.d(TAG, "Create User button is pressed");
-            // TODO: Save to database
+
+            String nameText = name.getText().toString();
+            String phoneText = phone.getText().toString();
+            String emailText = email.getText().toString();
+
+            db.userDao().insertAll(new User(nameText, phoneText, emailText));
+
+            startActivity(new Intent(CreateUser.this, MainActivity.class));
         });
     }
 }
